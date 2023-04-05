@@ -96,54 +96,7 @@ def return_df_dfT(fname):
     df_years_transposed = df_years.T
     return df_years, df_years_transposed
 
-# Method for returning pivoted DataFrame
 
-
-def pivoted_df(df, year):
-    '''
-
-    it takes a dataFrame and it selects the particular year data and generates
-    the pivoted DataFrame to have the series names as columns and the country
-    Parameters
-    ----------
-    df : DataFrame
-        it takes the parameter of a data frame that should be pivoted.
-    year : String
-        Required year Column name.
-    Returns
-    -------
-    df_pivoted : DataFrame
-        returns the pivoted dataframe.
-
-    '''
-    df_filtered = df[df["Series Name"].isin(["Access to electricity (% of population)",
-                                             "Access to electricity, rural (% of rural population)",
-                                             "Access to electricity, urban (% of urban population)",
-                                             "CO2 emissions (metric tons per capita)",
-                                             "CO2 emissions (kg per PPP $ of GDP)",
-                                             "CO2 emissions (kg per 2017 PPP $ of GDP)",
-                                             "CO2 emissions (kg per 201 PPP $ of GDP)"])]
-
-    # Pivot the DataFrame to have the series names as columns and the country
-    # names as rows
-    df_pivoted = df_filtered.pivot(
-        index="Country Name", columns="Series Name", values=year)
-
-    # Convert the values to numeric data type
-    df_pivoted["CO2 emissions (metric tons per capita)"] = pd.to_numeric(
-        df_pivoted["CO2 emissions (metric tons per capita)"])
-    return df_pivoted
-
-
-fileName = 'D:\\Datasets\\Metadata.csv'
-countries = ['China', 'India', 'United States', 'Indonesia', 'Pakistan']
-series = ['Access to electricity, rural (% of rural population)',
-          'Access to electricity, urban (% of urban population)',
-          'CO2 emissions (metric tons per capita)',
-          'CO2 emissions (kg per PPP $ of GDP)',
-          'CO2 emissions (kg per 2017 PPP $ of GDP)']
-df_years, df_years_transposed = return_df_dfT(fileName)
-print(df_years_transposed)
 
 
 print("Data Description:")
